@@ -1,0 +1,10 @@
+# Local Python environment and OS metadata
+.venv/
+__pycache__/
+.DS_Store
+
+# Large source datasets; keep local, out of Git
+/data/raw/
+
+# Rebuildable cleaned datasets (see src/clean_data.py)
+/data/processed/

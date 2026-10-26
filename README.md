@@ -19,7 +19,7 @@ python3.12 -m venv .venv
 
 ## Raw data sources
 
-Raw datasets stay local under `data/raw/` and are excluded from Git by `.gitignore`. Download the versions listed below from their source pages, preserving the supplied filenames and directory structure. The existing local copies are already available; do not redownload them unless needed.
+Raw datasets stay local under `data/raw/` and are excluded from Git by `.gitignore`. Download the versions listed below from their source pages, preserving the supplied filenames and directory structure. The existing local copies are already available; do not redownload them unless needed. For the zip file from BCDC Community Vulnerability (e221c89f-01bd-4e37-a742-31a7735df244.gdb), rename this directory to "CommunityVulnerability.gdb". We did this to make the folder name more interpretable.
 
 | Local dataset | Source / download |
 |---|---|

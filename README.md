@@ -44,5 +44,3 @@ python3.12 -m venv .venv
 ## Scope and limitations
 
 The charts describe mapped marsh area, modeled wave-height outputs across marsh connectivity classes, and shoreline characteristics near marshes. The wave-height chart compares the dataset's minimum and maximum output fields; it does not calculate wave-height reduction. The shoreline comparison uses a 100-meter buffer and an `intersects` join; it measures association, not marsh-caused flood reduction. The full population/equity and flood-exposure/protection-potential analyses are not yet implemented.
-
-No county boundary or crosswalk is configured, so layers without explicit county fields are not filtered to the nine-county region.

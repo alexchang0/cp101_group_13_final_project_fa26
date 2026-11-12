@@ -1,4 +1,5 @@
 geopandas==1.2.0
+pyarrow==22.0.0
 pyogrio==0.13.0
 rasterio==1.5.2
 shapely==2.2.0

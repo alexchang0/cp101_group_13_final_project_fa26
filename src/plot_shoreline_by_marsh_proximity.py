@@ -14,23 +14,21 @@ from matplotlib.ticker import PercentFormatter
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MARSH_FILE = ROOT / "data/processed/cleaned_bhm2020.gpkg"
-MARSH_LAYER = "tidal_marsh"
-SHORE_FILE = ROOT / "data/processed/cleaned_shore_inventory_bhm2020_update.gpkg"
-SHORE_LAYER = "shore_inventory_update"
+MARSH_FILE = ROOT / "data/processed/cleaned_bhm2020.parquet"
+SHORE_FILE = ROOT / "data/processed/cleaned_shore_inventory_bhm2020_update.parquet"
 OUTPUT = ROOT / "outputs/figures/shoreline_characteristics_by_marsh_proximity.png"
 EXPECTED_EPSG = 26910
 BUFFER_METERS = 100
 CATEGORIES = ["High Marsh Only", "Low Marsh Only", "Both High and Low", "No Mapped Marsh"]
 
 
-def read_layer(path: Path, layer: str, columns: list[str]) -> gpd.GeoDataFrame:
-    return gpd.read_file(path, layer=layer, engine="pyogrio", columns=columns)
+def read_layer(path: Path, columns: list[str]) -> gpd.GeoDataFrame:
+    return gpd.read_parquet(path, columns=["geometry"] + columns)
 
 
 def main() -> None:
-    marsh = read_layer(MARSH_FILE, MARSH_LAYER, ["Level4", "Level5"])
-    shore = read_layer(SHORE_FILE, SHORE_LAYER, ["Segment_ID", "Fortified"])
+    marsh = read_layer(MARSH_FILE, ["Level4", "Level5"])
+    shore = read_layer(SHORE_FILE, ["Segment_ID", "Fortified"])
     shore = shore.reset_index(drop=True)
     buffers = gpd.GeoDataFrame(
         {"shore_row": np.arange(len(shore), dtype="int64")},
@@ -40,6 +38,7 @@ def main() -> None:
         buffers, marsh[["Level5", "geometry"]], how="left", predicate="intersects"
     )
     matches = joined.loc[joined["Level5"].notna(), ["shore_row", "Level5"]]
+    matched_segments = matches["shore_row"].nunique()
     classes_by_row = matches.groupby("shore_row")["Level5"].agg(set)
 
     def category_for(row: int) -> str:
@@ -131,7 +130,7 @@ def main() -> None:
 
     print(f"Chart written: {OUTPUT.relative_to(ROOT)}")
     print(f"Spatial join: {len(shore):,} shoreline segments; buffer={BUFFER_METERS} m; "
-          f"predicate=intersects; matched shoreline segments={len(matches):,}")
+          f"predicate=intersects; matched shoreline segments={matched_segments:,}")
     for label in CATEGORIES:
         share_text = "n/a" if pd.isna(fortified_share[label]) else f"{fortified_share[label]:.1%}"
         print(f"- {label}: {counts[label]:,} shoreline segments, {lengths[label]:,.2f} km, "

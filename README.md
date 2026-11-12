@@ -38,7 +38,7 @@ python3.12 -m venv .venv
 ## Workflow outputs
 
 - `src/inspect_data.py` writes eight sample rows from each of the three raw datasets to `outputs/tables/data_inventory.json`.
-- `src/clean_data.py` reads raw inputs and rebuilds GeoPackages under `data/processed/`. It does not modify raw files.
+- `src/clean_data.py` reads raw inputs and rebuilds GeoParquet files under `data/processed/`. It does not modify raw files.
 - The plotting scripts create `outputs/figures/tidal_marsh_shoreline_map.png`, `outputs/figures/marsh_area_by_class.png`, `outputs/figures/shoreline_characteristics_by_marsh_proximity.png`, and `outputs/figures/wave_height_by_tidal_connectivity.png`.
 
 ## Scope and limitations

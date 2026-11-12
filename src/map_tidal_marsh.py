@@ -18,17 +18,15 @@ import shapely
 
 
 ROOT = Path(__file__).resolve().parents[1]
-MARSH_FILE = ROOT / "data/processed/cleaned_bhm2020.gpkg"
-MARSH_LAYER = "tidal_marsh"
-SHORE_FILE = ROOT / "data/processed/cleaned_shore_inventory_bhm2020_update.gpkg"
-SHORE_LAYER = "shore_inventory_update"
+MARSH_FILE = ROOT / "data/processed/cleaned_bhm2020.parquet"
+SHORE_FILE = ROOT / "data/processed/cleaned_shore_inventory_bhm2020_update.parquet"
 OUTPUT = ROOT / "outputs/figures/tidal_marsh_shoreline_map.png"
 EXPECTED_EPSG = 26910
 DISPLAY_SIMPLIFY_METERS = 20.0
 
 
-def read_layer(path: Path, layer: str) -> gpd.GeoDataFrame:
-    return gpd.read_file(path, layer=layer, engine="pyogrio", columns=[])
+def read_layer(path: Path) -> gpd.GeoDataFrame:
+    return gpd.read_parquet(path, columns=["geometry"])
 
 
 def compound_path(geometries, polygonal: bool) -> MplPath:
@@ -59,8 +57,8 @@ def compound_path(geometries, polygonal: bool) -> MplPath:
 
 
 def main() -> None:
-    marsh = read_layer(MARSH_FILE, MARSH_LAYER)
-    shore = read_layer(SHORE_FILE, SHORE_LAYER)
+    marsh = read_layer(MARSH_FILE)
+    shore = read_layer(SHORE_FILE)
     min_x = min(marsh.total_bounds[0], shore.total_bounds[0])
     min_y = min(marsh.total_bounds[1], shore.total_bounds[1])
     max_x = max(marsh.total_bounds[2], shore.total_bounds[2])

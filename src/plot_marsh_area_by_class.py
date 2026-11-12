@@ -11,15 +11,13 @@ import matplotlib.pyplot as plt
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUT = ROOT / "data/processed/cleaned_bhm2020.gpkg"
-LAYER = "tidal_marsh"
+INPUT = ROOT / "data/processed/cleaned_bhm2020.parquet"
 OUTPUT = ROOT / "outputs/figures/marsh_area_by_class.png"
 EXPECTED_EPSG = 26910
 
 
 def main() -> None:
-    marsh = gpd.read_file(INPUT, layer=LAYER, engine="pyogrio",
-                          columns=["Level4", "Level5"])
+    marsh = gpd.read_parquet(INPUT, columns=["geometry", "Level4", "Level5"])
 
     marsh["area_km2"] = marsh.geometry.area / 1_000_000
     marsh["Level5"] = marsh["Level5"].fillna("Missing / unclassified")

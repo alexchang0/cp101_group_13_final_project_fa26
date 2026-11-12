@@ -4,24 +4,21 @@ from __future__ import annotations
 
 from pathlib import Path
 
-import geopandas as gpd
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
-INPUT = ROOT / "data/processed/cleaned_baylands_resilience_metrics.gpkg"
-LAYER = "analysis_units"
+INPUT = ROOT / "data/processed/cleaned_baylands_resilience_metrics.parquet"
 OUTPUT = ROOT / "outputs/figures/wave_height_by_tidal_connectivity.png"
 
 
 def main() -> None:
-    metrics = gpd.read_file(
+    metrics = pd.read_parquet(
         INPUT,
-        layer=LAYER,
-        engine="pyogrio",
         columns=[
             "Unit_Type",
             "Tidal_Connectivity",
@@ -82,7 +79,9 @@ def main() -> None:
     fig.savefig(OUTPUT, dpi=240, facecolor="white", bbox_inches="tight")
     plt.close(fig)
     print(f"Chart written: {OUTPUT.relative_to(ROOT)}")
-    print(f"Marsh units summarized: {len(marsh_units):,}")
+    print(f"Marsh units with tidal connectivity: {len(marsh_units):,}")
+    print("Units with minimum output:", int(marsh_units["MEAN_MIN_Output_Wave_Height"].notna().sum()))
+    print("Units with maximum output:", int(marsh_units["MEAN_MAX_Output_Wave_Height"].notna().sum()))
     print(summary)
 
 

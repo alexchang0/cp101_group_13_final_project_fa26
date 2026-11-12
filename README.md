@@ -10,6 +10,8 @@ Raw source data are excluded from Git. A fresh clone does not contain `data/raw/
 
 Download the indicated releases and extract the geodatabases to these repository-relative paths.
 
+An easier option may be to download the raw datasets from [this Google Drive folder](https://drive.google.com/drive/folders/1Kb6uFQyoLTLZGsSp5szwX5WuMfOZ7R-g?usp=sharing) and place them in `data/raw/`.
+
 | Dataset | Download source | Required geodatabase path |
 |---|---|---|
 | Baylands Habitat Map 2020 v1.3 | [SFEI / WRMP](https://www.sfei.org/data/baylands-habitat-map-2020-bhm-2020-version-13-gis-data) | `data/raw/BHM2020/BHM2020_v1_3/BHM2020_v1_3.gdb` |

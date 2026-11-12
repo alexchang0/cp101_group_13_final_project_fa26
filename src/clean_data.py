@@ -80,11 +80,9 @@ def main():
     ]].isna().sum())
     print("Final CRS:", metrics.crs)
     print("Invalid geometries remaining:", int((~metrics.geometry.is_valid).sum()))
-    metrics.to_file(
-        processed_folder / "cleaned_baylands_resilience_metrics.gpkg",
-        layer="analysis_units",
-        driver="GPKG",
-        engine="pyogrio",
+    metrics.to_parquet(
+        processed_folder / "cleaned_baylands_resilience_metrics.parquet",
+        index=False,
     )
 
     # Clean BHM2020 tidal marsh polygons
@@ -139,15 +137,12 @@ def main():
     print("Final CRS:", marsh.crs)
     print("Invalid geometries remaining:", int((~marsh.geometry.is_valid).sum()))
 
-    bhm_output = processed_folder / "cleaned_bhm2020.gpkg"
-    marsh.to_file(
-        bhm_output,
-        layer="tidal_marsh",
-        driver="GPKG",
-        engine="pyogrio",
+    marsh.to_parquet(
+        processed_folder / "cleaned_bhm2020.parquet",
+        index=False,
     )
 
-    # Save the BHM2020 map boundary in the same GeoPackage
+    # Save the BHM2020 map boundary separately
     print("\nBHM2020 map boundary")
     bhm_boundary = gpd.read_file(
         bhm_file,
@@ -191,12 +186,9 @@ def main():
     print("Rows after cleaning:", len(bhm_boundary))
     print("Final CRS:", bhm_boundary.crs)
     print("Invalid geometries remaining:", int((~bhm_boundary.geometry.is_valid).sum()))
-    bhm_boundary.to_file(
-        bhm_output,
-        layer="bhm_map_boundary",
-        driver="GPKG",
-        engine="pyogrio",
-        mode="a",
+    bhm_boundary.to_parquet(
+        processed_folder / "cleaned_bhm2020_map_boundary.parquet",
+        index=False,
     )
 
     # Clean SFEI Shore Inventory BHM2020 Update
@@ -250,11 +242,9 @@ def main():
     print(shore[["Segment_ID", "Class", "Fortified", "Frontage", "Bayshore_D", "BCB_Eng"]].isna().sum())
     print("Final CRS:", shore.crs)
     print("Invalid geometries remaining:", int((~shore.geometry.is_valid).sum()))
-    shore.to_file(
-        processed_folder / "cleaned_shore_inventory_bhm2020_update.gpkg",
-        layer="shore_inventory_update",
-        driver="GPKG",
-        engine="pyogrio",
+    shore.to_parquet(
+        processed_folder / "cleaned_shore_inventory_bhm2020_update.parquet",
+        index=False,
     )
 
     print("\nFinished cleaning Baylands Resilience Metrics, BHM2020, and the BHM2020 Shore Inventory Update.")

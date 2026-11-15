@@ -1,0 +1,27 @@
+OLU_ID,OLU_Name,units,wave_offshore_ft,wave_back_of_marsh_ft,attenuation_ft,attenuation_pct
+1,Richardson,2,1.0,0.56,0.44,44.39
+2,Corte Madera,7,1.75,0.34,1.4,78.03
+4,Gallinas,4,2.38,0.04,2.21,98.65
+5,Novato,6,2.89,0.28,2.37,89.95
+6,Petaluma,2,2.61,0.02,2.59,99.3
+7,Napa - Sonoma,8,2.81,0.08,2.7,97.15
+8,Carquinez North,9,2.46,0.66,1.8,73.08
+9,Suisun Slough,4,2.91,0.59,2.23,79.49
+10,Montezuma Slough,29,2.37,0.78,1.5,66.02
+11,Bay Point,8,2.32,0.21,1.9,89.84
+12,Walnut,6,2.42,0.12,2.28,94.99
+13,Carquinez South,5,2.27,0.56,1.74,76.73
+14,Pinole,5,2.63,1.72,1.08,37.86
+15,Wildcat,10,2.24,0.53,1.6,75.87
+17,East Bay Crescent,3,1.67,0.5,1.44,76.94
+19,San Lorenzo,5,3.15,0.44,2.68,85.98
+20,Alameda Creek,16,3.02,0.45,2.47,84.76
+21,Mowry,2,2.62,0.06,2.56,97.64
+22,Santa Clara Valley,6,1.4,0.34,0.89,69.75
+23,Stevens,8,2.21,0.51,1.65,76.5
+24,San Francisquito,11,2.04,0.15,1.73,91.82
+25,Belmont - Redwood,16,2.28,0.2,1.89,91.76
+26,San Mateo,2,2.43,1.11,1.32,53.94
+27,Colma - San Bruno,2,2.55,1.9,0.65,25.59
+28,Yosemite - Visitacion,1,1.26,1.26,0.0,0.01
+29,Mission - Islais,1,1.9,1.01,0.88,46.57

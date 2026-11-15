@@ -1,4 +1,4 @@
-# Wave attenuation by marsh unit, using SFEI's Baylands Resilience Metrics.
+# Wave attenuation for each marsh unit, using SFEI's Baylands Resilience Metrics.
 # SFEI's web map defines attenuation as the 100-year wave height offshore
 # minus the 100-year wave height at the back of the marsh (feet).
 

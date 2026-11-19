@@ -4,3 +4,5 @@ pyogrio==0.13.0
 rasterio==1.5.2
 shapely==2.2.0
 matplotlib==3.10.8
+lonboard==0.17.0
+palettable==3.3.3
